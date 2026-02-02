@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro Timer</title>
+</head>
+<body>
+  <h1>Pomodoro Timer</h1>
+  <h2 id="timeDisplay">25:00</h2>
+  
+  <button id="start">Start</button>
+  <button id="stop">Stop</button>
+  <button id="reset">Reset</button>
+
+  <script>
+    let timeLeft = 25 * 60;
+    let timerId = null;
+    
+    const timeDisplay = document.getElementById('timeDisplay');
+    const startBtn = document.getElementById('start');
+    const stopBtn = document.getElementById('stop');
+    const resetBtn = document.getElementById('reset');
+    
+    function updateTimeDisplay() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+    
+    function tick() {
+      timeLeft--;
+      updateTimeDisplay();
+      
+      if (timeLeft <= 0) {
+        clearInterval(timerId);
+        timerId = null;
+        alert('Pomodoro terminado!');
+      }
+    }
+    
+    startBtn.addEventListener('click', () => {
+      if (!timerId) {
+        timerId = setInterval(tick, 1000);
+      }
+    });
+    
+    stopBtn.addEventListener('click', () => {
+      clearInterval(timerId);
+      timerId = null;
+    });
+    
+    resetBtn.addEventListener('click', () => {
+      clearInterval(timerId);
+      timerId = null;
+      timeLeft = 25 * 60;
+      updateTimeDisplay();
+    });
+  </script>
+</body>
+</html>

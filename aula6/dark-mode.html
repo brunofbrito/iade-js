@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark/Light Mode</title>
+  <style>
+    :root {
+      color-scheme: light;
+    }
+    :root.dark-mode {
+      color-scheme: dark;
+    }
+  </style>
+</head>
+<body>
+    <h1>Dark/Light Mode Demo</h1>
+    <button id="toggleTheme">
+      <span id="themeText">🌙 Dark Mode</span>
+    </button>
+
+  <script>
+    const toggleTheme = document.getElementById('toggleTheme');
+    const themeText = document.getElementById('themeText');
+    const html = document.documentElement;
+
+    toggleTheme.addEventListener('click', () => {
+      html.classList.toggle('dark-mode');
+      
+      if (html.classList.contains('dark-mode')) {
+        themeText.textContent = '☀️ Light Mode';
+      } else {
+        themeText.textContent = '🌙 Dark Mode';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Category Filter</title>
+</head>
+<body>
+  <h1>Movie Filter</h1>
+  
+  <div>
+    <button class="filter-button" data-category="all">All</button>
+    <button class="filter-button" data-category="comedy">Comedy</button>
+    <button class="filter-button" data-category="horror">Horror</button>
+    <button class="filter-button" data-category="drama">Drama</button>
+  </div>
+
+  <div id="movie-list">
+    <div class="movie" data-category="comedy">
+      <h3>Superbad</h3>
+      <p>Category: Comedy</p>
+    </div>
+    <div class="movie" data-category="comedy">
+      <h3>The Hangover</h3>
+      <p>Category: Comedy</p>
+    </div>
+    <div class="movie" data-category="comedy">
+      <h3>Bridesmaids</h3>
+      <p>Category: Comedy</p>
+    </div>
+
+    <div class="movie" data-category="horror">
+      <h3>The Conjuring</h3>
+      <p>Category: Horror</p>
+    </div>
+    <div class="movie" data-category="horror">
+      <h3>Hereditary</h3>
+      <p>Category: Horror</p>
+    </div>
+    <div class="movie" data-category="horror">
+      <h3>A Quiet Place</h3>
+      <p>Category: Horror</p>
+    </div>
+
+    <div class="movie" data-category="drama">
+      <h3>The Shawshank Redemption</h3>
+      <p>Category: Drama</p>
+    </div>
+    <div class="movie" data-category="drama">
+      <h3>Forrest Gump</h3>
+      <p>Category: Drama</p>
+    </div>
+    <div class="movie" data-category="drama">
+      <h3>The Green Mile</h3>
+      <p>Category: Drama</p>
+    </div>
+  </div>
+
+  <script>
+  const filterButtons = document.querySelectorAll('.filter-button');
+  const movies = document.querySelectorAll('.movie');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const category = button.getAttribute('data-category');
+
+      movies.forEach(movie => {
+        const movieCategory = movie.getAttribute('data-category');
+        
+        if (category === 'all' || movieCategory === category) {
+          movie.style.display = 'block';
+        } else {
+          movie.style.display = 'none';
+        }
+      });
+    });
+  });
+  </script>
+</body>
+</html>

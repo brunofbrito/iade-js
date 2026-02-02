@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Category Filter</title>
+</head>
+<body>
+  <h1>Movie Filter</h1>
+  
+  <div id="filter-buttons"></div>
+  <div id="movie-list"></div>
+
+  <script>
+  const movies = [
+    { id: 1, title: 'Superbad', category: 'comedy' },
+    { id: 2, title: 'The Hangover', category: 'comedy' },
+    { id: 3, title: 'Bridesmaids', category: 'comedy' },
+    
+    { id: 4, title: 'The Conjuring', category: 'horror' },
+    { id: 5, title: 'Hereditary', category: 'horror' },
+    { id: 6, title: 'A Quiet Place', category: 'horror' },
+    
+    { id: 7, title: 'The Shawshank Redemption', category: 'drama' },
+    { id: 8, title: 'Forrest Gump', category: 'drama' },
+    { id: 9, title: 'The Green Mile', category: 'drama' }
+  ];
+
+  const categories = [
+    { id: 'all', name: 'All' },
+    { id: 'comedy', name: 'Comedy' },
+    { id: 'horror', name: 'Horror' },
+    { id: 'drama', name: 'Drama' }
+  ];
+
+  function renderButtons() {
+    const buttonContainer = document.getElementById('filter-buttons');
+    
+    categories.forEach(category => {
+      const button = document.createElement('button');
+      button.textContent = category.name;
+      button.className = 'filter-btn';
+      button.dataset.category = category.id;
+      button.addEventListener('click', () => filterMovies(category.id));
+      buttonContainer.appendChild(button);
+    });
+  }
+
+  function renderMovies(moviesToShow = movies) {
+    const movieContainer = document.getElementById('movie-list');
+    movieContainer.innerHTML = ''; 
+    
+    moviesToShow.forEach(movie => {
+      const movieDiv = document.createElement('div');
+      movieDiv.className = 'movie';
+      movieDiv.innerHTML = `
+        <h3>${movie.title}</h3>
+        <p>Category: ${movie.category}</p>
+      `;
+      movieContainer.appendChild(movieDiv);
+    });
+  }
+
+  function filterMovies(category) {
+    if (category === 'all') {
+      renderMovies(movies);
+    } else {
+      const filtered = movies.filter(movie => movie.category === category);
+      renderMovies(filtered);
+    }
+  }
+
+  renderButtons();
+  renderMovies();
+  </script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Dashboard</title>
+    <style>
+      html {
+        font-size: 2rem;
+      }
+      table {
+        border-spacing: 4rem 0;
+      }
+      th {
+        text-transform: uppercase;;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>System Dashboard</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Info</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1. Estado da Rede</td>
+          <td id="network-status">Checking...</td>
+        </tr>
+        <tr>
+          <td>2. Monitor de Resolução</td>
+          <td id="resolution">Checking...</td>
+        </tr>
+        <tr>
+          <td>3. Nível de Bateria</td>
+          <td id="battery">Checking...</td>
+        </tr>
+        <tr>
+          <td>4. Idioma do Sistema</td>
+          <td id="language">Checking...</td>
+        </tr>
+        <tr>
+          <td>5. Contador de "Fugas"</td>
+          <td id="blur-count">0</td>
+        </tr>
+        <tr>
+          <td>6. Protocolo de Segurança</td>
+          <td id="protocol">Checking...</td>
+        </tr>
+      </tbody>
+    </table>
+    <script>
+      let blurCount = 0;
+
+      function updateNetworkStatus() {
+        const status = navigator.onLine ? 'Online' : 'Offline';
+        document.getElementById('network-status').innerHTML = status;
+      }
+
+      function updateResolution() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        document.getElementById('resolution').textContent = `${width}px × ${height}px`;
+      }
+      function updateBattery() {
+        if ('getBattery' in navigator) {
+          navigator.getBattery().then(battery => {
+            const level = Math.floor(battery.level * 100);
+            const charging = battery.charging ? 'Carregada' : 'A descarregar…';
+            document.getElementById('battery').innerHTML = `${level}% (${charging})`;
+          }).catch(error => {
+            document.getElementById('battery').innerHTML = 'API não disponível';
+          });
+        } else {
+          document.getElementById('battery').innerHTML = 'API não disponível';
+        }
+      }
+
+      function updateLanguage() {
+        const language = navigator.language || navigator.userLanguage;
+        document.getElementById('language').textContent = language;
+      }
+
+      function updateBlurCount() {
+        blurCount++;
+        document.getElementById('blur-count').textContent = blurCount;
+      }
+
+      function updateProtocol() {
+        const protocol = window.location.protocol;
+        const isSecure = protocol === 'https:';
+        const text = isSecure ? 'HTTPS (Seguro)' : 'HTTP (Não Seguro)';
+        document.getElementById('protocol').innerHTML = text;
+      }
+
+      window.addEventListener('online', updateNetworkStatus);
+      window.addEventListener('offline', updateNetworkStatus);
+      window.addEventListener('resize', updateResolution);
+      window.addEventListener('blur', updateBlurCount);
+
+      updateNetworkStatus();
+      updateResolution();
+      updateBattery();
+      updateLanguage();
+      updateProtocol();
+
+    </script>
+  </body>
+</html>
+</body>
+</html>

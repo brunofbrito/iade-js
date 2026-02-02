@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Character Counter</title>
+</head>
+<body>
+  <form>
+    <input type="text" />
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+  // Cria um validador de formulário com um campo de texto e um botão. Se o utilizador tentar enviar o formulário vazio ou com menos de 3 caracteres, uma mensagem de erro a vermelho deverá surgir abaixo do input.
+  const form = document.querySelector('form');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const input = document.querySelector('input');
+    const message = input.value;
+    if (message.length < 3) {
+      const warningMessage = document.createElement("div");
+      warningMessage.textContent = "A mensagem tem de ter pelo menos 3 caracteres!";
+      warningMessage.style.color = "red";
+      form.append(warningMessage);
+    } else {
+      form.submit();
+    }
+  });
+  </script>
+</body>
+</html>
