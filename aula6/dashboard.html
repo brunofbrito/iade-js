@@ -12,7 +12,7 @@
         border-spacing: 4rem 0;
       }
       th {
-        text-transform: uppercase;;
+        text-transform: uppercase;
         text-align: left;
       }
     </style>
@@ -66,6 +66,7 @@
         const height = window.innerHeight;
         document.getElementById('resolution').textContent = `${width}px × ${height}px`;
       }
+      
       function updateBattery() {
         if ('getBattery' in navigator) {
           navigator.getBattery().then(battery => {
